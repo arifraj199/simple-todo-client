@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <div class="hero min-h-screen bg-base-200">
         <div class="hero-content flex-col lg:flex-row">
@@ -8,7 +10,7 @@ const Home = () => {
           <div>
             <h1 class="text-5xl font-bold">Simple To-do List</h1>
             <p class="py-6">Note down of your daily work and keep important list safe.</p>
-            <button class="btn btn-primary">Add Task</button>
+            <button onClick={()=>navigate('/addtask')} class="btn btn-primary">Add Task</button>
           </div>
         </div>
       </div>
