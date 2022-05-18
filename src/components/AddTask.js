@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import MyTask from "./MyTask";
 
 const AddTask = () => {
@@ -14,13 +14,25 @@ const AddTask = () => {
             description:description
         }
 
+        fetch(`http://localhost:5000/addtask`,{
+            method:"POST",
+            headers:{
+                "content-type":"application/json"
+            },
+            body:JSON.stringify(taskInfo)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            setTask(data);
+        })
+
         // console.log(title,description);
 
-        setTask(taskInfo);
+        
         event.target.reset();
     }
   return (
-    <div className="mt-8">
+    <div className="mt-8 block lg:flex ">
       <form onSubmit={handleForm} className="flex flex-col sm:w-1/2 lg:w-1/4  items-center gap-4 mx-auto bg-cyan-600 p-5 rounded-lg ">
         <input
           type="text"
@@ -40,7 +52,11 @@ const AddTask = () => {
           className="btn btn-primary w-full"
         />
       </form>
-      <MyTask task={task}></MyTask>
+      {/* <div className="w-1/4 px-6">
+          <h2 className="text-center text-4xl mb-6">My Task</h2>
+          <hr className="w-1/2 mx-auto mb-4"/>
+        <MyTask task={task}></MyTask>
+      </div> */}
     </div>
   );
 };
