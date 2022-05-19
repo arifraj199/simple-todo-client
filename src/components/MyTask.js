@@ -6,7 +6,7 @@ const MyTask = () => {
     
 
     useEffect( ()=>{
-        fetch('http://localhost:5000/mytask')
+        fetch('https://morning-springs-01952.herokuapp.com/mytask')
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
@@ -15,7 +15,7 @@ const MyTask = () => {
     },[])
 
     const handleDelete = id =>{
-        fetch(`http://localhost:5000/mytask/${id}`,{
+        fetch(`https://morning-springs-01952.herokuapp.com/mytask/${id}`,{
             method:"DELETE"
         })
         .then(res=>res.json())
@@ -30,7 +30,7 @@ const MyTask = () => {
     
 //   console.log(task);
   return (
-    <div>
+    <div className="grid sm:grid-cols-1 lg:grid-cols-3">
         {
             task?.map(todo => <MyTodo 
                 key={todo._id} 

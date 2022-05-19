@@ -1,7 +1,16 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import auth from "../firebase.init";
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
+
+  const logout = ()=>{
+      signOut(auth);
+  }
+
   return (
     <div class="navbar bg-base-100">
       <div class="navbar-start">
@@ -30,13 +39,19 @@ const Navbar = () => {
               <Link to="/home">Home</Link>
             </li>
             <li>
-              <Link to="/addtask">Add Task</Link>
-            </li>
-            <li>
-              <Link to="/mytask">My Task</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
+            {
+                    user?
+                    <>
+                    
+                    <Link to="/addtask">Add Task</Link>
+                    <Link to="/mytask">My Task</Link>
+                    <Link onClick={logout} to="/login">Sign Out</Link>
+                    </>
+                    
+                    :
+                    <Link to="/login">Login</Link>
+                    
+                }
             </li>
           </ul>
         </div>
@@ -49,15 +64,21 @@ const Navbar = () => {
           <li>
             <Link to="/home">Home</Link>
           </li>
-          <li>
-              <Link to="/addtask">Add Task</Link>
-            </li>
             <li>
-              <Link to="/mytask">My Task</Link>
+            {
+                    user?
+                    <>
+                    
+                    <Link to="/addtask">Add Task</Link>
+                    <Link to="/mytask">My Task</Link>
+                    <Link onClick={logout} to="/login">Sign Out</Link>
+                    </>
+                    
+                    :
+                    <Link to="/login">Login</Link>
+                    
+                }
             </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
         </ul>
       </div>
     </div>

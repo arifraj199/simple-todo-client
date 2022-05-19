@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MyTask from "./MyTask";
+import { toast } from "react-toastify";
 
 const AddTask = () => {
     const [task,setTask] = useState([]);
@@ -14,7 +14,7 @@ const AddTask = () => {
             description:description
         }
 
-        fetch(`http://localhost:5000/addtask`,{
+        fetch(`https://morning-springs-01952.herokuapp.com/addtask`,{
             method:"POST",
             headers:{
                 "content-type":"application/json"
@@ -24,6 +24,7 @@ const AddTask = () => {
         .then(res=>res.json())
         .then(data=>{
             setTask(data);
+            toast("Task added on My Task Page")
         })
 
         // console.log(title,description);
@@ -52,11 +53,6 @@ const AddTask = () => {
           className="btn btn-primary w-full"
         />
       </form>
-      {/* <div className="w-1/4 px-6">
-          <h2 className="text-center text-4xl mb-6">My Task</h2>
-          <hr className="w-1/2 mx-auto mb-4"/>
-        <MyTask task={task}></MyTask>
-      </div> */}
     </div>
   );
 };
